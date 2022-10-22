@@ -1,2 +1,4 @@
 # campo-minado
-Campo Minado
+Jogo Campo Minado
+
+Do tempo da faculdade
