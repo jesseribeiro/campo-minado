@@ -1,49 +1,48 @@
 import java.util.*;
 
 public class Tabuleiro {
-    private int[][] m = new int[12][12];
-    private int l=12;
-    private int c=12;
+    private String[][] m = new String[17][17];
+    private int l=17;
+    private int c=17;
     private int i=1;
     private int linha;
     private int coluna;
     Random random = new Random();
-    
-    public void preencheMatriz() {
 
+    public void preencheMatriz() {
         for (linha=0; linha<getLinhas(); linha++) {
             for(coluna=0; coluna<getColunas(); coluna++) {
-                m[linha][coluna]= 7;
+                m[linha][coluna] = "A";
                 i++;
             }
         }
     }
-    
+
     public int getLinhas() {
         return l;
     }
-    
+
     public int getColunas() {
         return c;
     }
-    
+
     public void sorteiaMinas() {
         int i = 0;
-        while (i<30) {
-            int x = random.nextInt(10) + 1;
-            int y = random.nextInt(10) + 1;
-            if (m[x][y] != -1)
+        while (i < 80) {
+            int x = random.nextInt(15) + 1;
+            int y = random.nextInt(15) + 1;
+            if (!m[x][y].equalsIgnoreCase("X"))
             {
-                m[x][y] = -1;
+                m[x][y] = "X";
                 i++;
             }
         }
     }
-    
+
     public void imprimeMatriz() {
-        for (linha=1; linha<(getLinhas()-1); linha++) {
-            for (coluna=1; coluna<(getColunas()-1); coluna++) {
-                if (coluna == 10) {
+        for (linha=1; linha<(getLinhas() -1); linha++) {
+            for (coluna=1; coluna<(getColunas() -1); coluna++) {
+                if (coluna == 15) {
                     System.out.println("  " + m[linha][coluna]);
                 }
                 else {
@@ -52,40 +51,40 @@ public class Tabuleiro {
             }
         }
     }
-    
-    public int retornaValor(int a, int b) {
+
+    public String retornaValor(int a, int b) {
         return m[a][b];
     }
-    
+
     public int verificaVizinho(int a, int b) {
         int v=0;
-        if (m[a-1][b-1] == -1) {
+        if (m[a-1][b-1].equalsIgnoreCase("X")) {
             v += 1;
         }
-        if (m[a-1][b] == -1) {
+        if (m[a-1][b].equalsIgnoreCase("X")) {
             v += 1;
         }
-        if (m[a-1][b+1] == -1) {
+        if (m[a-1][b+1].equalsIgnoreCase("X")) {
             v += 1;
         }
-        if (m[a][b-1] == -1) {
+        if (m[a][b-1].equalsIgnoreCase("X")) {
             v += 1;
         }
-        if (m[a][b+1] == -1) {
+        if (m[a][b+1].equalsIgnoreCase("X")) {
             v += 1;
         }
-        if (m[a+1][b-1] == -1) {
+        if (m[a+1][b-1].equalsIgnoreCase("X")) {
             v += 1;
         }
-        if (m[a+1][b] == -1) {
+        if (m[a+1][b].equalsIgnoreCase("X")) {
             v += 1;
         }
-        if (m[a+1][b+1] == -1) {
+        if (m[a+1][b+1].equalsIgnoreCase("X")) {
             v += 1;
         }
         return v;
     }
-    
+
     public static void main(String args[]) {
         Tabuleiro tab = new Tabuleiro();
         tab.preencheMatriz();
@@ -93,6 +92,3 @@ public class Tabuleiro {
         tab.imprimeMatriz();
     }
 }
-
-   
-    

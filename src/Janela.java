@@ -1,81 +1,97 @@
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.*;
 
 public class Janela extends JFrame implements ActionListener {
 
     private Tabuleiro t = new Tabuleiro();
     private Botao botao[];
-    private Icon aluno;
     private String str;
-    
+
     public Janela() {
         super("Campo Minado");
-        
+
         Container container = getContentPane();
-        container.setLayout(new GridLayout(10,10));
-        
-        aluno = new ImageIcon("aluno.png","aluno");
+        container.setLayout(new GridLayout(15,15));
 
         t.preencheMatriz();
         t.sorteiaMinas();
         t.imprimeMatriz();
-        
+
         botao = new Botao[totalBotoes(t)];
 
         int i=0;
         int array[] = new int[2];
-        for (int x=1;x<(t.getLinhas()-1);x++) {
-            for (int j=1;j<(t.getColunas()-1);j++) {
-                 if (t.retornaValor(x,j) == 7) {
-                     array[0]=x;
-                     array[1]=j;
-
-                     botao[i] = new Botao(array);
-                     botao[i].addActionListener(this);
-
-                     container.add(botao[i]);
-                     i++;
-                 }
-                 else {
-                     array[0]=x;
-                     array[1]=j;
-
-                     botao[i] = new Botao(array);
-                     botao[i].addActionListener(this);
-
-                     container.add(botao[i]);
-                     i++;
-                 }
+        for (int x=1; x<(t.getLinhas()-1);x++) {
+            for (int j=1; j<(t.getColunas()-1);j++) {
+                array[0]=x;
+                array[1]=j;
+                botao[i] = new Botao(array);
+                botao[i].addActionListener(this);
+                container.add(botao[i]);
+                i++;
             }
         }
-        setSize(500,500);
+        setSize(700,700);
         setResizable(false);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
-        
+
     public int totalBotoes(Tabuleiro t) {
-        return (t.getLinhas()-1) * (t.getColunas()-1);
+        return (t.getLinhas() -1) * (t.getColunas() -1);
     }
 
     public void actionPerformed(ActionEvent ae) {
         Botao b = (Botao)ae.getSource();
-        Icon bomba = new ImageIcon("bombinha_normal.png","bomba");
+        Icon bomba = new ImageIcon("bomba.png","bomba");
 
         int[] vetor = b.getArray();
 
-        if (t.retornaValor(vetor[0],vetor[1]) == -1) {
+        b.setBackground(Color.WHITE);
+        if (t.retornaValor(vetor[0],vetor[1]).equalsIgnoreCase("X")) {
             b.setIcon(bomba);
         }
         else {
-            if (t.verificaVizinho(vetor[0],vetor[1]) > 0) {
+            int numeroBombas = t.verificaVizinho(vetor[0],vetor[1]);
+            if (numeroBombas > 0) {
                 b.setText(str = String.valueOf(t.verificaVizinho(vetor[0],vetor[1])));
+                b.setForeground(verificaCor(numeroBombas));
             }
         }
     }
-    
+
+    private Color verificaCor (int numeroBombas) {
+        switch (numeroBombas) {
+            case 1:
+                Color roxo = new Color(153,51,153);
+                return roxo;
+            case 2:
+                Color azul = new Color(0,0,205);
+                return azul;
+            case 3:
+                Color verde = new Color(0,100,0);
+                return verde;
+            case 4:
+                Color amarelo = new Color(255,215,0);
+                return amarelo;
+            case 5:
+                Color laranja = new Color(255,140,0);
+                return laranja;
+            case 6:
+                Color vermelho = new Color(255,36,0);
+                return vermelho;
+            case 7:
+                Color bordo = new Color(128,0,0);
+                return bordo;
+            case 8:
+                Color rosa = new Color(255,20,147);
+                return rosa;
+        }
+        return null;
+    }
+
     private class Botao extends JButton {
         private int[] valor = new int[2];
         public Botao(int[] array) {
@@ -92,4 +108,3 @@ public class Janela extends JFrame implements ActionListener {
         Janela janela = new Janela();
     }
 }
- 
