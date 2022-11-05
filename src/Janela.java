@@ -1,7 +1,10 @@
+import com.sun.javafx.font.FontFactory;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.Dimension2D;
 
 public class Janela extends JFrame implements ActionListener {
 
@@ -58,6 +61,7 @@ public class Janela extends JFrame implements ActionListener {
             if (numeroBombas > 0) {
                 b.setText(str = String.valueOf(t.verificaVizinho(vetor[0],vetor[1])));
                 b.setForeground(verificaCor(numeroBombas));
+                b.setFont(new Font("Tahoma", Font.BOLD, 18));
             }
         }
     }

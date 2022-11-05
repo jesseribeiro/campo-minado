@@ -12,7 +12,7 @@ public class Tabuleiro {
     public void preencheMatriz() {
         for (linha=0; linha<getLinhas(); linha++) {
             for(coluna=0; coluna<getColunas(); coluna++) {
-                m[linha][coluna] = "A";
+                m[linha][coluna] = "O";
                 i++;
             }
         }
@@ -28,7 +28,7 @@ public class Tabuleiro {
 
     public void sorteiaMinas() {
         int i = 0;
-        while (i < 80) {
+        while (i < 75) {
             int x = random.nextInt(15) + 1;
             int y = random.nextInt(15) + 1;
             if (!m[x][y].equalsIgnoreCase("X"))
